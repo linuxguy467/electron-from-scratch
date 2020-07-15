@@ -5,7 +5,9 @@
   "description": "Electron app from scratch",
   "main": "index.js",
   "scripts": {
+    "move:html": "cp ./src/website/index.html ./out/website/index.html",
     "build": "tsc",
+    "build:watch": "npm run build -- --watch",
     "start": "electron ./out/electron/index.js"
   },
   "keywords": [],
