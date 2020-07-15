@@ -5,9 +5,14 @@
   "description": "Electron app from scratch",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "electron ./out/electron/index.js"
   },
   "keywords": [],
   "author": "Matthew Hemingway <dpplrdr435@gmai.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "~9.1.0",
+    "typescript": "~3.9.6"
+  }
 }
