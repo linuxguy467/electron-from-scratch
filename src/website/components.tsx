@@ -24,9 +24,7 @@ export const GrayBox: React.FunctionComponent = (props) => (
 );
 
 export const Centered: React.FunctionComponent = (props) => (
-  <div
-    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-  >
+  <div className='centered'>
     <div>{props.children}</div>
   </div>
 );
