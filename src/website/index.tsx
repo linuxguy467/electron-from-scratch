@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import * as api from './api';
 import {
   Button,
   Centered,
@@ -36,6 +37,26 @@ const WorkspaceInputPage: React.FC<{
     </React.Fragment>
   );
 };
+
+const MigrationsDisplayPage: React.FunctionComponent<{
+  migrations: api.Migration[];
+}> = (props) => (
+  <React.Fragment>
+    <h3>Migrations:</h3>
+    {props.migrations.map((m, i) => (
+      <p key={i}>File: {m.filename}</p>
+    ))}
+  </React.Fragment>
+);
+
+const WorkspaceProgressPage: React.FunctionComponent<{
+  message: string;
+}> = (props) => (
+  <React.Fragment>
+    <h3>Creating workspace:</h3>
+    {props.message}
+  </React.Fragment>
+);
 
 const App = () => (
   <Centered>
