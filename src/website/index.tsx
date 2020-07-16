@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import { createWorkspaceAndLoadMigrations } from './actionCreators';
 import * as api from './api';
-import {
-  Button,
-  Centered,
-  Emphasis,
-  FormField,
-  GrayBox,
-  TextInput,
-} from './components';
+import { appReducer, initialState } from './appReducer';
+import { Button, Centered, FormField, GrayBox, TextInput } from './components';
 import './sass/index.scss';
 
 const app = document.getElementById('app');
@@ -58,15 +53,27 @@ const WorkspaceProgressPage: React.FunctionComponent<{
   </React.Fragment>
 );
 
+const AppContents: React.FunctionComponent = () => {
+  const [appState, dispatch] = useReducer(appReducer, initialState);
+
+  switch (appState.page) {
+    case 'INPUT_WORKSPACE':
+      return (
+        <WorkspaceInputPage
+          onSubmit={(name) => createWorkspaceAndLoadMigrations(dispatch, name)}
+        />
+      );
+    case 'WAITING_FOR_WORKSPACE':
+      return <WorkspaceProgressPage message={appState.progressMessage} />;
+    case 'DISPLAY_MIGRATIONS':
+      return <MigrationsDisplayPage migrations={appState.migrations} />;
+  }
+};
+
 const App = () => (
   <Centered>
     <GrayBox width={400}>
-      <p style={{ width: '600px' }}>
-        Hello, <Emphasis>world</Emphasis>
-      </p>
-      <Button primary onClick={() => alert('Ok!')}>
-        OK
-      </Button>
+      <AppContents />
     </GrayBox>
   </Centered>
 );
